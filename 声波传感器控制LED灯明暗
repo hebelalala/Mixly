@@ -1,0 +1,34 @@
+volatile float dist;
+
+float checkdistance_A2_A3() {
+  digitalWrite(A2, LOW);
+  delayMicroseconds(2);
+  digitalWrite(A2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(A2, LOW);
+  float distance = pulseIn(A3, HIGH) / 58.00;
+  delay(10);
+  return distance;
+}
+
+void setup(){
+  dist = 0;
+  pinMode(A2, OUTPUT);//将A2设为输出
+  pinMode(A3, INPUT);//将A3设为输入
+  Serial.begin(9600);
+  pinMode(3, OUTPUT);//将管脚3设为输出
+}
+
+void loop(){
+  dist = checkdistance_A2_A3();
+  Serial.print("Distance(cm):");
+  Serial.println(dist);
+  if (dist < 50) {
+    digitalWrite(3,LOW);
+
+  } else {
+    digitalWrite(3,HIGH);//将管脚3设为高电平
+
+  }
+
+}
