@@ -1,0 +1,24 @@
+void setup(){
+  dist = 0;
+  pinMode(A2, OUTPUT);
+  pinMode(A3, INPUT);
+  Serial.begin(9600);
+   m.init();
+  m.setIntensity(1);
+}
+
+void loop(){
+  dist = checkdistance_A2_A3();
+  Serial.print("距离:");
+  Serial.println(dist);
+  if (dist > 50) {
+    for (int i = 0; i < 8; i++)
+     m.setColumn(i, LedArray[i]);
+
+  } else {
+    for (int i = 0; i < 8; i++)
+     m.setColumn(i, LedArray2[i]);
+
+  }
+
+}
